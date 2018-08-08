@@ -1,0 +1,139 @@
+body {
+  margin: 0;
+}
+
+header {
+  height: 75px;
+  background-color: #030370;
+}
+
+#logo-img {
+  position: absolute;
+  top: 15px;
+  left: 25px;
+}
+
+nav {
+  margin-right: 25px;
+}
+
+/* anchor div to attach nav-buttons to */
+.nav-menu {
+  width: 150px;
+  height: 50px;
+  padding: 15px 1px;
+  float: right;
+}
+
+.nav-button {
+  background-color: white;
+  border: none;
+  position: absolute;
+  width: 150px;
+  height: 50px;
+  display: none;
+  font-size: 15px;
+  letter-spacing: 2px;
+  font-family: Roboto, Arial, sans-serif;
+
+}
+
+/* only the first nav-button in a nav-menu is visible by default */
+.nav-button:first-child {
+  display: inline-block;
+}
+
+/* Styles for main */
+section {
+  height: 800px;
+  background-color: black;
+}
+
+section#home {
+  /* the linear gradient is to apply a tint to the image */
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("images/printer_paper_stack.jpg");
+  background-size: cover;
+}
+
+h1#tagline {
+  width: fit-content;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 40px;
+  color: white; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50px);
+  letter-spacing: 2px;
+  font-weight: 100;
+}
+
+#products-button {
+  /* positioning */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 60px);
+  /* styling */
+  background-color: #030370;
+  border: solid black 1px;
+  color: white;
+  border-radius: 9px;
+  width: 150px;
+  height: 50px;
+  font-size: 15px;
+  letter-spacing: 2px;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+#products-header {
+  /* positioning */
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  /* styling */
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 40px;
+  color: white;
+}
+
+#carousel-container {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: 0px;
+  height: 0px;
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-div {
+  position: relative;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-img {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  width: 50px;
+}
+
+.carousel-button {
+  position: absolute;
+}
+
+#scroll-right {
+  left: 550px;
+}
+
+#scroll-left {
+  right: 550px;
+}
+
+#buy-product {
+  top: 280px;
+  transform: translate(-50%, 0);
+}
