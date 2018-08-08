@@ -9,8 +9,9 @@ header {
 
 #logo-img {
   position: absolute;
-  top: 15px;
+  top: 10px;
   left: 25px;
+  width: 130px;
 }
 
 nav {
@@ -24,7 +25,14 @@ nav {
   height: 40px;
   padding: 13px 1px;
   display: inline-block;
-  right: 0px;
+}
+
+/* a zero dimensions div to anchor the nav-buttons */
+.nav-button-div {
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-button {
@@ -33,16 +41,17 @@ nav {
   position: relative;
   width: 130px;
   height: 40px;
-  display: none;
+  /* display: none; */
+  opacity: 0;
   font-size: 12px;
   letter-spacing: 2px;
   font-family: Roboto, Arial, sans-serif;
-
 }
 
 /* only the first nav-button in a nav-menu is visible by default */
-.nav-button:first-child {
-  display: inline-block;
+.nav-button-div:first-child .nav-button {
+  /* display: inline-block; */
+  opacity: 1;
 }
 
 /* Styles for main */
@@ -55,6 +64,7 @@ section#home {
   /* the linear gradient is to apply a tint to the image */
   background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("images/printer_paper_stack.jpg");
   background-size: cover;
+  background-repeat: no-repeat;
 }
 
 h1#tagline {
