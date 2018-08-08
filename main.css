@@ -14,6 +14,7 @@ header {
 }
 
 nav {
+  float: right;
   margin-right: 25px;
 }
 
@@ -21,14 +22,15 @@ nav {
 .nav-menu {
   width: 130px;
   height: 40px;
-  padding: 10px 1px;
-  float: right;
+  padding: 13px 1px;
+  display: inline-block;
+  right: 0px;
 }
 
 .nav-button {
   background-color: #ccc;
   border: none;
-  position: absolute;
+  position: relative;
   width: 130px;
   height: 40px;
   display: none;
