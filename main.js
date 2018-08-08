@@ -1,10 +1,9 @@
 //foldDown("about-menu");
 
 initializeNavMenus();
-initializeCarousel();
 
+//initialize event listeners on navigation menus
 function initializeNavMenus(){
-  //initialize event listeners on navigation menus
   navMenus = document.querySelectorAll(".nav-menu");
   for (let i = 0; i < navMenus.length; i++){
     //only put the animation on menus with more than one button
@@ -36,6 +35,8 @@ function initializeNavMenus(){
     }
   }
 }
+
+//fold a navMenu up or down
 function fold(direction, navMenuID){
   //this function loops through all nav-buttons in this navMenu after the first,
   //and slides them down into view one by one
@@ -94,16 +95,39 @@ function fold(direction, navMenuID){
 
 }
 
+//precompute a list of sin/cos values around the circle
+//rounded to 3 decimal places
+var circleValues = function(){
+  var array = [];
+  //generate sin/cos values at 1 degree intervals
+  for (let i = 0; i <= 360; i++){
+    var radian = i * Math.PI / 180; //convert degree to radian
+    //compute sin/cos values, rounded to 3 decimal places
+    var sin = Math.round(Math.sin(radian) * 1000) / 1000;
+    var cos = Math.round(Math.cos(radian) * 1000) / 1000;
+    //store them in array
+    array.push({sin: sin, cos: cos});
+  }
+  return array;
+}();
 
+//these variables determine the shape of the carousel
+var maxXOffset = 400;
+var maxYOffset = 250;
+//these determine the min to max size of images in carousel
+var imgMinSize = 50;
+var imgMaxSize = 400;
 
+//the carousel's current position and angle, starts at 0
+var currentPosition = 0;
+var currentAngle = 0;
+//set positions of each item in carousel
+initializeCarousel();
+
+//initialize the product display carousel
 function initializeCarousel(){
-  //these variables determine the shape of the carousel
-  var maxXOffset = 400;
-  var maxYOffset = 250;
-  //these determine the min to max size of images in carousel
-  var imgMinSize = 50;
-  var imgMaxSize = 400;
-  var carouselItems = document.querySelectorAll("#carousel-container > .carousel-div");
+
+  var carouselItems = document.querySelectorAll("#carousel-container .carousel-div");
   for (let i = 0; i < carouselItems.length; i++){
     //below variables declared with "var" instead of "let" to improve runtime
     //they weren't all declared at the top of the function because that looks ugly,
@@ -111,31 +135,122 @@ function initializeCarousel(){
 
     //get item at position i
     var item = carouselItems[i];
-    //get the image in the div
-    var img = item.children[0];
-    
-    // calculate this item's position in the circle
-    var radian = (i/carouselItems.length) * 2 * Math.PI;
-    var sin = Math.sin(radian);
-    var cos = Math.cos(radian);
-    //calculate x and y offset (where this item will appear on the carousel)
-    var xOffset = sin * maxXOffset;
-    var yOffset = cos * maxYOffset;
-    var prominence = (cos + 1)/2;
-    //prominence represents how "front and center" a carousel image is,
-    //the image currently in the foreground has prominence = 1,
-    //and the ones all the way in the back has prominence = 0
-
-    //calculate how big the image should appear (biggest image is front and center)
-    var imgSize = (imgMaxSize - imgMinSize)*prominence + imgMinSize;
-    // apply position
-    item.style.top = yOffset + "px";
-    item.style.left = xOffset + "px";
-    //apply z index
-    item.style.zIndex = cos;
-    //apply img size
-    img.style.width = imgSize + "px";
-    //apply img opacity
-    img.style.opacity = prominence;
+    //calculate angle
+    var angle = (i/carouselItems.length) * 360;
+    //position this item
+    positionCarouselItem(item, angle);
   }
+
+  //add event listeners to carousel buttons
+  addCarouselEvents();
+}
+
+//add event listeners to carousel buttons
+function addCarouselEvents(){
+  var carouselRight = document.querySelector("#carousel-right");
+  var carouselLeft = document.querySelector("#carousel-left");
+  //add listeners
+  carouselRight.addEventListener("click", function(event){
+    if (!carouselAnimating){
+      positionCarousel(currentPosition + 1);
+    }
+  });
+  carouselLeft.addEventListener("click", function(event){
+    if (!carouselAnimating){
+      positionCarousel(currentPosition - 1);
+    }
+  });
+}
+
+//carousel element
+var carousel = document.querySelector("#carousel-container");
+//carousel items
+var carouselItems = document.querySelectorAll(".carousel-div");
+//flag for if carousel is currently animating
+var carouselAnimating = false;
+
+//function to rotate carousel to any desired position
+function positionCarousel(position){
+  //don't do anything if carousel is already in this position
+  if (position == currentPosition) return;
+  
+  carouselAnimating = true;
+  //compute clockwise and counterclockwise distance from currentPosition to position
+  var ccwDistance = (currentPosition - position + carouselItems.length) % carouselItems.length;
+  var cwDistance = carouselItems.length - ccwDistance;
+  //compare the distances and see which way we should rotate
+  var direction = (ccwDistance < cwDistance) ? 1 : -1;
+  var distance = Math.min(ccwDistance, cwDistance);
+  var angle = direction * distance / carouselItems.length * 360;
+  //rotate carousel
+  rotateCarousel(angle, 500 * distance);
+  //update currentPosition and angle
+  currentPosition = position;
+  currentAngle += angle;
+  currentAngle = (currentAngle + 360) % 360;
+}
+
+//this function rotates the carousel by a certain amount of degrees,
+//in the given duration. Positive angle is ccw, negative is cw
+function rotateCarousel(angle, duration){
+  var start = null;
+  //compute angle offsets for each item
+  var offsets = [];
+  for (let i = 0; i < carouselItems.length; i++){
+    offsets.push((i/carouselItems.length)*360);
+  }
+
+  window.requestAnimationFrame(function animate(time){
+    if (!start) start = time;
+    var progress = (time - start) / duration;
+    progress = (progress > 1) ? 1 : progress;
+    
+    //update positions of each item
+    for (let i = 0; i < carouselItems.length; i++){
+      //compute the new angle
+      var newAngle = offsets[i] + currentAngle + angle * progress;
+      //make sure angle doesn't go out of bounds
+      newAngle = (newAngle + 360) % 360;
+      //position this item
+      positionCarouselItem(carouselItems[i], newAngle);
+    }
+    //if animation isn't complete, keep going
+    if (progress < 1){
+      window.requestAnimationFrame(animate);
+    } else {
+      //animation complete
+      carouselAnimating = false;
+    }
+  });
+}
+
+function positionCarouselItem(item, angle){
+  // calculate this item's position in the circle
+  var radian = angle * Math.PI / 180;
+
+  //get the image in the div
+  var img = item.children[0];
+
+  var sin = Math.sin(radian);
+  var cos = Math.cos(radian);
+  //calculate x and y offset (where this item will appear on the carousel)
+  var xOffset = sin * maxXOffset;
+  var yOffset = cos * maxYOffset;
+  
+  var prominence = (cos + 1)/2;
+  //prominence represents how "front and center" a carousel image is,
+  //the image currently in the foreground has prominence = 1,
+  //and the ones all the way in the back has prominence = 0
+
+  //calculate how big the image should appear (biggest image is front and center)
+  var imgSize = (imgMaxSize - imgMinSize)*prominence + imgMinSize;
+  // apply position
+  item.style.top = yOffset + "px";
+  item.style.left = xOffset + "px";
+  //apply z index
+  item.style.zIndex = cos;
+  //apply img size
+  img.style.width = imgSize + "px";
+  //apply img opacity
+  img.style.opacity = prominence;
 }

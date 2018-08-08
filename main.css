@@ -137,11 +137,11 @@ h1#tagline {
   position: absolute;
 }
 
-#scroll-right {
+#carousel-right {
   left: 550px;
 }
 
-#scroll-left {
+#carousel-left {
   right: 550px;
 }
 
