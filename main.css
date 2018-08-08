@@ -3,7 +3,7 @@ body {
 }
 
 header {
-  height: 75px;
+  height: 65px;
   background-color: #030370;
 }
 
@@ -19,20 +19,20 @@ nav {
 
 /* anchor div to attach nav-buttons to */
 .nav-menu {
-  width: 150px;
-  height: 50px;
-  padding: 15px 1px;
+  width: 130px;
+  height: 40px;
+  padding: 10px 1px;
   float: right;
 }
 
 .nav-button {
-  background-color: white;
+  background-color: #ccc;
   border: none;
   position: absolute;
-  width: 150px;
-  height: 50px;
+  width: 130px;
+  height: 40px;
   display: none;
-  font-size: 15px;
+  font-size: 12px;
   letter-spacing: 2px;
   font-family: Roboto, Arial, sans-serif;
 
