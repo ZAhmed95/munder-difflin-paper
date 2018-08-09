@@ -11,26 +11,32 @@
 <body>
   <!-- contains navigation menu -->
   <header>
-    <img id="logo-img" src="images/logo.png" alt="Munder Difflin Logo">
+    <div id="logo-img">MUNDER DIFFLIN PAPER</div>
 
     <nav>
-      <div class="nav-menu" id="contact-us-div">
+      <div class="nav-menu font-1" id="contact-us-div">
           <div class="nav-button-div"><button class="nav-button" id="nav-contact-us">CONTACT US</button></div>
+          <div class="nav-button-div"><button class="nav-button" id="nav-contact-us">Email</button></div>
+          <div class="nav-button-div"><button class="nav-button" id="nav-contact-us">Phone</button></div>
+          <div class="nav-button-div"><button class="nav-button" id="nav-paper-appraisal">Locations</button></div>
       </div>
 
-      <div class="nav-menu" id="learn-more-div">
+      <div class="nav-menu font-1" id="learn-more-div">
           <div class="nav-button-div"><button class="nav-button" id="nav-learn-more">LEARN MORE</button></div>
       </div>
 
-      <div class="nav-menu" id="services-div">
+      <div class="nav-menu font-1" id="services-div">
           <div class="nav-button-div"><button class="nav-button" id="nav-services">SERVICES</button></div>
           <div class="nav-button-div"><button class="nav-button" id="nav-paper-delivery">Paper Delivery</button></div>
           <div class="nav-button-div"><button class="nav-button" id="nav-paper-appraisal">Paper Appraisal</button></div>
+          <div class="nav-button-div"><button class="nav-button" id="nav-paper-appraisal">Pay Per Paper</button></div>
+          <div class="nav-button-div"><button class="nav-button" id="nav-paper-appraisal">Paper Cutting</button></div>
+          <div class="nav-button-div"><button class="nav-button" id="nav-paper-appraisal">Paper Recycling</button></div>
       </div>
 
-      <div class="nav-menu" id="about-menu">
+      <div class="nav-menu font-1" id="about-menu">
           <div class="nav-button-div"><button class="nav-button" id="nav-about-us">ABOUT US</button></div>
-          <div class="nav-button-div"><button class="nav-button" id="nav-our-team">Our Team</button></div>
+          <div class="nav-button-div"><a href="#about-us-section"><button class="nav-button" id="nav-our-team">Our Team</button></a></div>
           <div class="nav-button-div"><button class="nav-button" id="nav-our-history">Our History</button></div>
       </div>
       
@@ -40,56 +46,58 @@
   <!-- contains main info about the company and products -->
   <main>
     <section id="home">
-      <h1 id="tagline">The <em><strong>Proper</strong></em> Way to Paper</h1>
-      <a href="#products-section"><button id="products-button">View Products</button></a> 
+      <h1 class="font-1" id="tagline">The <em><strong>Proper</strong></em> Way to Paper</h1>
+      <a href="#products-section"><button class="font-1" id="products-button">View Products</button></a> 
     </section>
 
     <section id="products-section">
-      <h2 class="section-header" id="products-header">Our Products</h2>
+      <h2 class="section-header font-1" id="products-header">Our Products</h2>
 
       <div id="carousel-container">
         <div class="carousel-div">
-          <img src="http://via.placeholder.com/400x400" class="carousel-img" id="carousel-img-1">
+          <img src="images/inkjet_paper.jpg" class="carousel-img" id="carousel-img-1">
         </div>
         <div class="carousel-div">
-          <img src="http://via.placeholder.com/400x400" class="carousel-img" id="carousel-img-2">
+          <img src="images/office_paper.jpg" class="carousel-img" id="carousel-img-2">
         </div>
         <div class="carousel-div">
-          <img src="http://via.placeholder.com/400x400" class="carousel-img" id="carousel-img-3">
+          <img src="images/construction_paper.jpg" class="carousel-img" id="carousel-img-3">
         </div>
         <div class="carousel-div">
-          <img src="http://via.placeholder.com/400x400" class="carousel-img" id="carousel-img-4">
+          <img src="images/bank_paper.jpg" class="carousel-img" id="carousel-img-4">
         </div>
         <div class="carousel-div">
-          <img src="http://via.placeholder.com/400x400" class="carousel-img" id="carousel-img-5">
+          <img src="images/coated_paper.jpg" class="carousel-img" id="carousel-img-5">
         </div>
         <div class="carousel-div">
-          <img src="http://via.placeholder.com/400x400" class="carousel-img" id="carousel-img-6">
+          <img src="images/cotton_paper.jpg" class="carousel-img" id="carousel-img-6">
         </div>
         <div class="carousel-div">
-          <img src="http://via.placeholder.com/400x400" class="carousel-img" id="carousel-img-7">
+          <img src="images/book_paper.jpg" class="carousel-img" id="carousel-img-7">
         </div>
 
-        <button class="carousel-button" id="carousel-right">Right</button>
-        <button class="carousel-button" id="carousel-left">Left</button>
-        <button class="carousel-button" id="buy-product">Buy</button>
+        <button class="carousel-button" id="carousel-right"></button>
+        <button class="carousel-button" id="carousel-left"></button>
+        <button class="carousel-button font-1" id="buy-product">Buy</button>
       </div>
     </section>
 
     <section id="about-us-section">
-      <h2 class="section-header" id="about-us-header">About Us</h2>
-      <p class="about-us-p">
+      <h2 class="section-header font-1" id="about-us-header">About Us</h2>
+      <p class="about-us-p font-1">
         Our company was made with customer satisfaction in mind. When you buy our paper, we  <em>guarantee</em> you'll say "Damn, that's some good paper."
       </p>
 
-      <p class="about-us-p">
+      <p class="about-us-p font-1">
         Our team is made up of some extremely passionate individuals, all of whom strive daily to make your paper buying experience as smooth and enjoyable as possible. And when we say passionate, we <em>mean</em> it. We won't rest until every single customer is satisfied with their paper.
       </p>
     </section>
   </main>
 
   <!-- contains boring stuff -->
-  <footer></footer>
+  <footer>
+    <span class="font-1" id="copyright-notice"> © 2018 Munder Difflin Company <span>
+  </footer>
 
   <script src="main.js"></script>
 </body>

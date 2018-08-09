@@ -139,6 +139,9 @@ function initializeCarousel(){
     var angle = (i/carouselItems.length) * 360;
     //position this item
     positionCarouselItem(item, angle);
+    //give item the offsetAngle property, to know where it belongs
+    //in the circle
+    item.offsetAngle = angle;
   }
 
   //add event listeners to carousel buttons
@@ -182,23 +185,17 @@ function positionCarousel(position){
   var direction = (ccwDistance < cwDistance) ? 1 : -1;
   var distance = Math.min(ccwDistance, cwDistance);
   var angle = direction * distance / carouselItems.length * 360;
+  
   //rotate carousel
   rotateCarousel(angle, 500 * distance);
-  //update currentPosition and angle
+  //update currentPosition
   currentPosition = position;
-  currentAngle += angle;
-  currentAngle = (currentAngle + 360) % 360;
 }
 
 //this function rotates the carousel by a certain amount of degrees,
 //in the given duration. Positive angle is ccw, negative is cw
 function rotateCarousel(angle, duration){
   var start = null;
-  //compute angle offsets for each item
-  var offsets = [];
-  for (let i = 0; i < carouselItems.length; i++){
-    offsets.push((i/carouselItems.length)*360);
-  }
 
   window.requestAnimationFrame(function animate(time){
     if (!start) start = time;
@@ -208,7 +205,8 @@ function rotateCarousel(angle, duration){
     //update positions of each item
     for (let i = 0; i < carouselItems.length; i++){
       //compute the new angle
-      var newAngle = offsets[i] + currentAngle + angle * progress;
+      var newAngle = carouselItems[i].offsetAngle + currentAngle + angle * progress;
+      
       //make sure angle doesn't go out of bounds
       newAngle = (newAngle + 360) % 360;
       //position this item
@@ -220,6 +218,9 @@ function rotateCarousel(angle, duration){
     } else {
       //animation complete
       carouselAnimating = false;
+      //update currentAngle
+      currentAngle += angle;
+      currentAngle = (currentAngle + 360) % 360;
     }
   });
 }
@@ -243,14 +244,15 @@ function positionCarouselItem(item, angle){
   //and the ones all the way in the back has prominence = 0
 
   //calculate how big the image should appear (biggest image is front and center)
-  var imgSize = (imgMaxSize - imgMinSize)*prominence + imgMinSize;
+  var imgSize = (imgMaxSize - imgMinSize) * prominence + imgMinSize;
   // apply position
   item.style.top = yOffset + "px";
   item.style.left = xOffset + "px";
   //apply z index
-  item.style.zIndex = cos;
+  img.style.zIndex = 200 + Math.floor(cos * 180) + ""; //z-index can't have float values
   //apply img size
   img.style.width = imgSize + "px";
   //apply img opacity
-  img.style.opacity = prominence;
+  img.style.opacity = prominence * 1.1;
+  //the "* 1.1" is just to make sure the front item is fully opaque
 }

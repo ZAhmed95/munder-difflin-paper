@@ -9,14 +9,34 @@ header {
 
 #logo-img {
   position: absolute;
-  top: 10px;
-  left: 25px;
+  display: inline-block;
+  top: 15px;
+  left: 15px;
   height: 50px;
+  margin: 0;
+  color: white;
+  font-family: RepublicaMinor;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.font-1 {
+  font-family: Roboto, Arial, sans-serif;
+}
+
+@font-face {
+  font-family: RepublicaMinor;
+  src: url("fonts/republica_minor_regular.ttf")
 }
 
 nav {
   float: right;
   margin-right: 25px;
+}
+
+button:focus {
+  /* remove the annoying blue border chrome puts around a clicked button */
+  outline: 0;
 }
 
 /* anchor div to attach nav-buttons to */
@@ -42,11 +62,10 @@ nav {
   position: relative;
   width: 130px;
   height: 40px;
-  /* display: none; */
   opacity: 0;
   font-size: 12px;
   letter-spacing: 2px;
-  font-family: Roboto, Arial, sans-serif;
+  font-family: inherit;
 }
 
 .nav-button:hover {
@@ -78,7 +97,6 @@ section#home {
 
 h1#tagline {
   width: fit-content;
-  font-family: Roboto, Arial, sans-serif;
   font-size: 40px;
   color: white; 
   position: absolute;
@@ -104,7 +122,6 @@ h1#tagline {
   height: 50px;
   font-size: 15px;
   letter-spacing: 2px;
-  font-family: Roboto, Arial, sans-serif;
 }
 
 #products-button:hover {
@@ -118,7 +135,6 @@ h2.section-header {
   left: 50%;
   transform: translate(-50%, 0);
   /* styling */
-  font-family: Roboto, Arial, sans-serif;
   font-size: 40px;
   color: white;
 }
@@ -131,9 +147,8 @@ section:nth-child(odd) .section-header, p {
   margin: 0 auto;
   width: 600px;
   padding-top: 50px;
-  font-family: Roboto, Arial, sans-serif;
   font-size: 25px;
-  text-align: center;
+  text-align: left;
 }
 
 .about-us-p:nth-child(2) {
@@ -162,21 +177,62 @@ section:nth-child(odd) .section-header, p {
   position: absolute;
   transform: translate(-50%, -100%);
   width: 50px;
+  z-index: 0;
 }
 
 .carousel-button {
   position: absolute;
+  border: none;
+  background: none;
+  width: 50px;
+  height: 50px;
 }
 
 #carousel-right {
   left: 550px;
+  
 }
 
 #carousel-left {
   right: 550px;
+  /* left button is a flipped version of right button */
+  transform: scaleX(-1);
+}
+
+#carousel-right, #carousel-left {
+  background: url('images/right_button.png');
+  background-size: 90%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#carousel-right:hover, #carousel-left:hover {
+  background-size: cover;
 }
 
 #buy-product {
   top: 280px;
   transform: translate(-50%, 0);
+  background-color: red;
+  width: 150px;
+  height: 40px;
+  border-radius: 9px;
+  font-size: 15px;
+  letter-spacing: 2px;
+  color: white;
+}
+
+#buy-product:hover {
+  background-color: darkred;
+}
+
+footer {
+  height: 50px;
+  background-color: black;
+  padding-top: 10px;
+  padding-left: 20px;
+}
+
+#copyright-notice {
+  color: white;
 }
