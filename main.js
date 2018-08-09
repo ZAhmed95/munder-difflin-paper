@@ -98,7 +98,10 @@ function fold(direction, navMenuID){
 //precompute a list of sin/cos values around the circle
 //rounded to 3 decimal places
 var circleValues = function(){
-  var array = [];
+  var values = {
+    sin: [],
+    cos: []
+  };
   //generate sin/cos values at 1 degree intervals
   for (let i = 0; i <= 360; i++){
     var radian = i * Math.PI / 180; //convert degree to radian
@@ -106,10 +109,31 @@ var circleValues = function(){
     var sin = Math.round(Math.sin(radian) * 1000) / 1000;
     var cos = Math.round(Math.cos(radian) * 1000) / 1000;
     //store them in array
-    array.push({sin: sin, cos: cos});
+    values.sin.push(sin);
+    values.cos.push(cos);
   }
-  return array;
+  return values;
 }();
+
+function storedSin(angle){
+  //takes an angle in degrees (0 <= angle < 360) and outputs the approximate sin value,
+  //using the array of stored sin/cos values
+  var index = Math.floor(angle);
+  var fraction = angle - index;
+  var firstVal = circleValues.sin[index];
+  var secondVal = circleValues.sin[index+1];
+  return firstVal + (secondVal - firstVal) * fraction;
+}
+
+function storedCos(angle){
+  //takes an angle in degrees (0 <= angle < 360) and outputs the approximate cos value,
+  //using the array of stored sin/cos values
+  var index = Math.floor(angle);
+  var fraction = angle - index;
+  var firstVal = circleValues.cos[index];
+  var secondVal = circleValues.cos[index+1];
+  return firstVal + (secondVal - firstVal) * fraction;
+}
 
 //these variables determine the shape of the carousel
 var maxXOffset = 400;
@@ -232,8 +256,8 @@ function positionCarouselItem(item, angle){
   //get the image in the div
   var img = item.children[0];
 
-  var sin = Math.sin(radian);
-  var cos = Math.cos(radian);
+  var sin = storedSin(angle);
+  var cos = storedCos(angle);
   //calculate x and y offset (where this item will appear on the carousel)
   var xOffset = sin * maxXOffset;
   var yOffset = cos * maxYOffset;
