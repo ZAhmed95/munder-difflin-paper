@@ -165,7 +165,7 @@ section:nth-child(odd) .section-header, p {
   padding: 0;
 }
 
-.carousel-div {
+.carousel-item {
   position: relative;
   width: 0;
   height: 0;
